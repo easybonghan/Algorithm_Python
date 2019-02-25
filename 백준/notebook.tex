@@ -1,0 +1,785 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1005 ACM Craft}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{acm-craft}{%
+\section{\texorpdfstring{\href{https://www.acmicpc.net/problem/1005}{ACM
+Craft}}{ACM Craft}}\label{acm-craft}}
+
+\hypertarget{uxbb38uxc81c}{%
+\subsection{문제}\label{uxbb38uxc81c}}
+
+서기 2012년! 드디어 2년간 수많은 국민들을 기다리게 한 게임 ACM Craft
+(Association of Construction Manager Craft)가 발매되었다.
+
+이 게임은 지금까지 나온 게임들과는 다르게 ACM크래프트는 다이나믹한 게임
+진행을 위해 건물을 짓는 순서가 정해져 있지 않다. 즉, 첫 번째 게임과 두
+번째 게임이 건물을 짓는 순서가 다를 수도 있다. 매 게임시작 시 건물을
+짓는 순서가 주어진다. 또한 모든 건물은 각각 건설을 시작하여 완성이 될
+때까지 Delay가 존재한다.
+
+\includegraphics{https://www.acmicpc.net/upload/201003/star.JPG}
+
+위의 예시를 보자.
+
+이번 게임에서는 다음과 같이 건설 순서 규칙이 주어졌다. 1번 건물의 건설이
+완료된다면 2번과 3번의 건설을 시작할수 있다. (동시에 진행이 가능하다)
+그리고 4번 건물을 짓기 위해서는 2번과 3번 건물이 모두 건설
+완료되어야지만 4번건물의 건설을 시작할수 있다.
+
+따라서 4번건물의 건설을 완료하기 위해서는 우선 처음 1번 건물을
+건설하는데 10초가 소요된다. 그리고 2번 건물과 3번 건물을 동시에 건설하기
+시작하면 2번은 1초뒤에 건설이 완료되지만 아직 3번 건물이 완료되지
+않았으므로 4번 건물을 건설할 수 없다. 3번 건물이 완성되고 나면 그때 4번
+건물을 지을수 있으므로 4번 건물이 완성되기까지는 총 120초가 소요된다.
+
+프로게이머 최백준은 애인과의 데이트 비용을 마련하기 위해 서강대학교배
+ACM크래프트 대회에 참가했다! 최백준은 화려한 컨트롤 실력을 가지고 있기
+때문에 모든 경기에서 특정 건물만 짓는다면 무조건 게임에서 이길 수 있다.
+그러나 매 게임마다 특정건물을 짓기 위한 순서가 달라지므로 최백준은
+좌절하고 있었다. 백준이를 위해 특정건물을 가장 빨리 지을 때까지 걸리는
+최소시간을 알아내는 프로그램을 작성해주자.
+
+\hypertarget{uxc785uxb825}{%
+\subsection{입력}\label{uxc785uxb825}}
+
+첫째 줄에는 테스트케이스의 개수 T가 주어진다. 각 테스트 케이스는 다음과
+같이 주어진다. 첫째 줄에 건물의 개수 N 과 건물간의 건설순서규칙의 총
+개수 K이 주어진다. (건물의 번호는 1번부터 N번까지 존재한다)
+
+둘째 줄에는 각 건물당 건설에 걸리는 시간 D가 공백을 사이로 주어진다.
+셋째 줄부터 K+2줄까지 건설순서 X Y가 주어진다. (이는 건물 X를 지은
+다음에 건물 Y를 짓는 것이 가능하다는 의미이다)
+
+마지막 줄에는 백준이가 승리하기 위해 건설해야 할 건물의 번호 W가
+주어진다. (1 ≤ N ≤ 1000, 1 ≤ K ≤ 100000 , 1≤ X,Y,W ≤ N, 0 ≤ D ≤ 100000)
+
+\hypertarget{uxcd9cuxb825}{%
+\subsection{출력}\label{uxcd9cuxb825}}
+
+건물 W를 건설완료 하는데 드는 최소 시간을 출력한다. 편의상 건물을 짓는
+명령을 내리는 데는 시간이 소요되지 않는다고 가정한다.
+
+모든 건물을 지을 수 없는 경우는 없다.
+
+\hypertarget{uxc608uxc81c-uxc785uxb825-1}{%
+\subsection{예제 입력 1}\label{uxc608uxc81c-uxc785uxb825-1}}
+
+2\\
+4 4\\
+10 1 100 10\\
+1 2\\
+1 3\\
+2 4\\
+3 4\\
+4\\
+8 8\\
+10 20 1 5 8 7 1 43\\
+1 2\\
+1 3\\
+2 4\\
+2 5\\
+3 6\\
+5 7\\
+6 7\\
+7 8\\
+7\\
+\#\# 예제 출력 1 120\\
+39
+
+    \hypertarget{uxbb38uxc81c-uxd574uxacb0uxd55c-uxcf54uxb4dc---uxc77cuxbc18uxc801uxc778-uxc704uxc0c1-uxc815uxb82c-uxc54cuxace0uxb9acuxc998-uxc0acuxc6a9}{%
+\subsection{문제 해결한 코드 - 일반적인 위상 정렬 알고리즘
+사용}\label{uxbb38uxc81c-uxd574uxacb0uxd55c-uxcf54uxb4dc---uxc77cuxbc18uxc801uxc778-uxc704uxc0c1-uxc815uxb82c-uxc54cuxace0uxb9acuxc998-uxc0acuxc6a9}}
+
+집입 차수가 0인 정점부터 시작으로 정점에 대한 가중치를 더 해 간다.
+
+A -\textgreater{} D\\
+A -\textgreater{} C -\textgreater{} D 그래프의 경우 (A + D), (A + C + D)
+\ldots{}.. 중 큰값을 정점 D에 저장
+
+BFS와 비슷해 보이지만, 그림을 그려 놓고 보면 집입 차수가 0인(리프노드)
+정점을 시작으로 값이 더해 지며, 집입 차수가 0인 아닌 정점은 다른 연결된
+정점중 값이 큰 것으로 저장 된다.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        
+        \PY{k}{def} \PY{n+nf}{topologicalSorting}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{queue} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{edgeCount}\PY{p}{)} \PY{k}{if} \PY{n}{v} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{x} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}
+            \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{queue}\PY{p}{:}
+                \PY{n}{result}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{n}{x}\PY{p}{]}
+            
+            \PY{k}{while}\PY{p}{(}\PY{n}{queue}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                
+                \PY{k}{for} \PY{n}{ele} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{result}\PY{p}{[}\PY{n}{ele}\PY{p}{]}     \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{n}{ele}\PY{p}{]}\PY{p}{,} \PY{n}{result}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{p}{)}
+                    \PY{n}{edgeCount}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{l+m+mi}{1}
+        
+                    \PY{k}{if} \PY{n}{edgeCount}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{n}{queue}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ele}\PY{p}{)}
+            
+        \PY{n}{data}     \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{testCase} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{buldingCount}\PY{p}{,} \PY{n}{rules} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                
+            \PY{n}{weight} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{sys}\PY{o}{.}\PY{n}{stdin}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{weight}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            
+            \PY{n}{N}         \PY{o}{=} \PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}
+            \PY{n}{adj\PYZus{}list}  \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+            \PY{n}{edgeCount} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{N}
+            
+            \PY{k}{for} \PY{n}{rule} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{rules} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{row}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{sys}\PY{o}{.}\PY{n}{stdin}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{row}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{col}\PY{p}{)}
+                \PY{n}{edgeCount}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+        
+            \PY{n}{target} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{buldingCount}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rules}\PY{p}{)}        \PY{c+c1}{\PYZsh{} 1}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{weight}\PY{p}{)}       \PY{c+c1}{\PYZsh{} 2}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)}     \PY{c+c1}{\PYZsh{} 3}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{target}\PY{p}{)}       \PY{c+c1}{\PYZsh{} 4}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{edgeCount}\PY{p}{)}    \PY{c+c1}{\PYZsh{} 5}
+        
+            \PY{n}{data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        
+        \PY{n}{minTime} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{testcase} \PY{o+ow}{in} \PY{n}{data}\PY{p}{:}
+            \PY{n}{buldingCount} \PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{weight}\PY{p}{,}  \PY{n}{adj\PYZus{}list}\PY{p}{,} \PY{n}{target}\PY{p}{,} \PY{n}{edgeCount} \PY{o}{=} \PY{n}{testcase}
+            
+            \PY{n}{visited}  \PY{o}{=} \PY{p}{[}\PY{k+kc}{False}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{result}   \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+        
+            \PY{n}{topologicalSorting}\PY{p}{(}\PY{p}{)}
+        
+            \PY{n}{minTime}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{)}
+        
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n+nb}{str}\PY{p}{,} \PY{n}{minTime}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{uxd480uxc774}{%
+\subsection{풀이}\label{uxd480uxc774}}
+
+간단하게 위상 정렬을 통해 나온 그래프를 이용하여 각각에 정점에 대한 값만
+더해 주면 된다고 생각함.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{adj\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]} \PY{p}{]}  
+         \PY{n}{N}        \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 정점 수}
+         \PY{n}{visited}  \PY{o}{=} \PY{p}{[}\PY{k+kc}{False} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} 방문되면 True로}
+         \PY{n}{s}        \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{n}{target} \PY{o}{=} \PY{l+m+mi}{4}
+         
+         \PY{k}{def} \PY{n+nf}{dfs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+             \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}  \PY{c+c1}{\PYZsh{} 정점 v 방문}
+             
+             \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{} 정점 v에 인접한 각 정점에 대해}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{dfs}\PY{p}{(}\PY{n}{w}\PY{p}{)}  \PY{c+c1}{\PYZsh{} v에 인접한 방문 안된 정점 재귀호출}
+             
+             \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{c+c1}{\PYZsh{} i에서 진출하는 간선이 더 이상 없으므로 i를 s에 추가 }
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{target}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{dfs}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         \PY{n}{s}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{위상정렬:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+위상정렬:
+[1, 2, 3, 4, 0]
+
+    \end{Verbatim}
+
+    그래프가 구해 졌지만, 1 -\textgreater{} 2 -\textgreater{} 4, 1
+-\textgreater{} 3 -\textgreater{} 4 중 각각의 정점의 값을 더해 큰 값을
+구해야 되는데\ldots{}\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{adj\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{N}        \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 정점 수}
+         \PY{n}{visited}  \PY{o}{=} \PY{p}{[}\PY{k+kc}{False} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} 방문되면 True로}
+         \PY{n}{s}        \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{def} \PY{n+nf}{dfs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+             \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}  \PY{c+c1}{\PYZsh{} 정점 v 방문}
+         
+             \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{} 정점 v에 인접한 각 정점에 대해}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{dfs}\PY{p}{(}\PY{n}{w}\PY{p}{)}  \PY{c+c1}{\PYZsh{} v에 인접한 방문 안된 정점 재귀호출}
+             
+             \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{c+c1}{\PYZsh{} i에서 진출하는 간선이 더 이상 없으므로 i를 s에 c추가 }
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{dfs}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+         
+         \PY{n}{s}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{위상정렬:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+위상정렬:
+[1, 3, 6, 2, 5, 7, 8, 4]
+
+    \end{Verbatim}
+
+    데이터가 바뀌어도 여전히 위상정려로 구해진 그래프들 중 큰 값을 구합 수
+없다.
+
+    아래 두 코드들은 막연하게 예제에 대한 답만 나온 경우다. 만약 특정 정정을
+알고 싶다고 하면 맞는 것도 있겠지만 아닌것도 존재 한다.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{adj\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]} \PY{p}{]}  
+         \PY{n}{N}        \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 정점 수}
+         \PY{n}{visited}  \PY{o}{=} \PY{p}{[}\PY{k+kc}{False} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} 방문되면 True로}
+         \PY{n}{s}        \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{weight}   \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+         
+         
+         
+         \PY{k}{def} \PY{n+nf}{dfs}\PY{p}{(}\PY{n}{v}\PY{p}{,} \PY{n}{g}\PY{p}{)}\PY{p}{:}
+             \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}  \PY{c+c1}{\PYZsh{} 정점 v 방문}
+          
+             \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{temp2} \PY{o}{=} \PY{p}{[}\PY{n}{weight}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{]}
+             \PY{n}{gg} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(} \PY{n}{temp2} \PY{k}{if} \PY{n}{temp2} \PY{k}{else} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{v}\PY{p}{,} \PY{n}{g}\PY{p}{,} \PY{n}{temp}\PY{p}{,} \PY{n}{temp2}\PY{p}{)}
+             \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{} 정점 v에 인접한 각 정점에 대해}
+                 \PY{n}{value} \PY{o}{=} \PY{n}{g} \PY{o}{+} \PY{n}{gg}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{:} 
+                     \PY{n}{value} \PY{o}{=} \PY{n}{dfs}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{value}\PY{p}{)}  \PY{c+c1}{\PYZsh{} v에 인접한 방문 안된 정점 재귀호출}
+                 
+                 \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+                 
+             
+             \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{c+c1}{\PYZsh{} i에서 진출하는 간선이 더 이상 없으므로 i를 s에 추가 }
+             
+             \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{temp}\PY{p}{)} \PY{k}{if} \PY{n}{temp} \PY{k}{else} \PY{n}{g}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{N}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{value} \PY{o}{=} \PY{n}{dfs}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+                 
+         \PY{n}{s}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{위상정렬:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 10 [] [1, 100]
+2 110 [] [10]
+4 120 [] []
+3 110 [] [10]
+120
+
+위상정렬:
+[1, 3, 2, 4]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{adj\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}
+                     \PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{n}{N}        \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)} \PY{c+c1}{\PYZsh{} 그래프 정점 수}
+         \PY{n}{visited}  \PY{o}{=} \PY{p}{[}\PY{k+kc}{False} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} 방문되면 True로}
+         \PY{n}{s}        \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{weight}   \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{42}\PY{p}{,} \PY{l+m+mi}{0} \PY{p}{]}
+         
+         \PY{n}{target}   \PY{o}{=} \PY{l+m+mi}{7}
+         
+         \PY{k}{def} \PY{n+nf}{dfs}\PY{p}{(}\PY{n}{v}\PY{p}{,} \PY{n}{g}\PY{p}{)}\PY{p}{:}
+             \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}  \PY{c+c1}{\PYZsh{} 정점 v 방문}
+          
+             \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{temp2} \PY{o}{=} \PY{p}{[}\PY{n}{weight}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{]}
+         
+             \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{} 정점 v에 인접한 각 정점에 대해}
+                 \PY{n}{value} \PY{o}{=} \PY{n}{g} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{w}\PY{p}{]}
+         
+                 \PY{k}{if} \PY{n}{w} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{target}\PY{p}{:}
+                     \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+                     \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+                     \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+                     \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{temp}\PY{p}{)} \PY{k}{if} \PY{n}{temp} \PY{k}{else} \PY{n}{g}
+                 
+         
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{w}\PY{p}{]} \PY{p}{:} 
+                     \PY{n}{value} \PY{o}{=} \PY{n}{dfs}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{value}\PY{p}{)}  \PY{c+c1}{\PYZsh{} v에 인접한 방문 안된 정점 재귀호출}
+                             
+                 \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+                 
+             \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)} \PY{c+c1}{\PYZsh{} i에서 진출하는 간선이 더 이상 없으므로 i를 s에 추가 }
+         
+             \PY{k}{return} \PY{n+nb}{max}\PY{p}{(}\PY{n}{temp}\PY{p}{)} \PY{k}{if} \PY{n}{temp} \PY{k}{else} \PY{n}{g}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{target}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{value} \PY{o}{=} \PY{n}{dfs}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{value}\PY{p}{)}
+                 
+         \PY{n}{s}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{위상정렬:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+39
+
+위상정렬:
+[1, 3, 6, 2, 5, 4]
+
+    \end{Verbatim}
+
+    `정답입니다.' 라고 나오기전까지 작성하던 코드이다.
+
+\begin{itemize}
+\tightlist
+\item
+  위상 정렬을 이용하면 시작점으로 하는 그래프를 만들수 있다. 주어진
+  예제에는 없지만 다른 예제들은 시작접이 여러개, 즉 그래프 자체가 트리를
+  구성하지 않기 않는다. 책에 있는 예제는 트리로 구성된 것이기 때문에
+  여기에 나온 예제와 맞지 않는다. dfs(v)메서드는 여기에 맞지 않는다.
+\item
+  원래 위상정렬은 리프노드(즉 집입 차수가 0) 부터 탐색을 시작한다. 내가
+  원하는 것이 7부터 시작이니까 즉 이 정점(노드)부터 시작하면 된다고 생각
+  했다. 여기 까지는 좋다. 2)가 정답 처리가 안되는 이유는 한가지.
+  그래프에서 너비 우선 탐색이 안된다는 것이다.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\NormalTok{) 정답 코드}
+\ControlFlowTok{while}\NormalTok{(queue):}
+\NormalTok{    x = queue.pop(}\DecValTok{0}\NormalTok{)}
+
+    \ControlFlowTok{for}\NormalTok{ ele in adj_list[x]:}
+\NormalTok{        result[ele]     = max(result[ele], result[x] + weight[ele] )}
+\NormalTok{        edgeCount[ele] -= }\DecValTok{1}
+
+        \ControlFlowTok{if}\NormalTok{ edgeCount[ele] == }\DecValTok{0}\NormalTok{:}
+\NormalTok{            queue.append(ele)}
+                    
+\DecValTok{2}\NormalTok{) XXXXXXX        }
+\ControlFlowTok{while}\NormalTok{(queue):}
+\NormalTok{    x = queue.pop(}\DecValTok{0}\NormalTok{)}
+
+    \ControlFlowTok{for}\NormalTok{ ele in adj_list[x]:}
+        \ControlFlowTok{if}\NormalTok{ result[ele] < result[x] + weight[ele]:}
+\NormalTok{            result[ele] = result[x] + weight[ele]}
+
+        \ControlFlowTok{if}\NormalTok{ not visited[ele]:}
+\NormalTok{            queue.append(ele)}
+\NormalTok{            visited[ele] = True       }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\tightlist
+\item
+  트리는 그래프이다. 그러나 그래프는 트리가 될수도 있고 아닐 수도 있다.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+        
+        \PY{k}{def} \PY{n+nf}{dfs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+            \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}  
+        
+            \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{v}\PY{p}{]}\PY{p}{:}
+                \PY{k}{if} \PY{n}{result}\PY{p}{[}\PY{n}{w}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{result}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{:}
+                        \PY{n}{result}\PY{p}{[}\PY{n}{w}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{w}\PY{p}{]}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{w}\PY{p}{]}\PY{p}{:}
+                    \PY{n}{dfs}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+            
+            \PY{n}{top}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{bfs}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{p}{:}
+            \PY{n}{queue} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{queue}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{v}\PY{p}{)}
+            \PY{n}{visited}\PY{p}{[}\PY{n}{v}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+            
+            \PY{k}{while}\PY{p}{(}\PY{n}{queue}\PY{p}{)}\PY{p}{:}
+                \PY{n}{x} \PY{o}{=} \PY{n}{queue}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+                
+                \PY{k}{for} \PY{n}{ele} \PY{o+ow}{in} \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{result}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{result}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{ele}\PY{p}{]}\PY{p}{:}
+                        \PY{n}{result}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{o}{=} \PY{n}{result}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{+} \PY{n}{weight}\PY{p}{[}\PY{n}{ele}\PY{p}{]}
+                        
+                    \PY{k}{if} \PY{o+ow}{not} \PY{n}{visited}\PY{p}{[}\PY{n}{ele}\PY{p}{]}\PY{p}{:}
+                        \PY{n}{queue}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ele}\PY{p}{)}
+                        \PY{n}{visited}\PY{p}{[}\PY{n}{ele}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+            
+        \PY{n}{data}     \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+        \PY{n}{testCases} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{k}{for} \PY{n}{testCase} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{testCases}\PY{p}{)}\PY{p}{:}
+            \PY{n}{temp} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{buldingCount}\PY{p}{,} \PY{n}{rules} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{weight} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{sys}\PY{o}{.}\PY{n}{stdin}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{weight}\PY{o}{.}\PY{n}{insert}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+            
+            \PY{n}{N} \PY{o}{=} \PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}
+        
+            \PY{n}{adj\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{rule} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{rules} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                \PY{n}{row}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n}{sys}\PY{o}{.}\PY{n}{stdin}\PY{o}{.}\PY{n}{readline}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                \PY{n}{adj\PYZus{}list}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{row}\PY{p}{)}
+            
+            \PY{n}{target} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{buldingCount}\PY{p}{)} \PY{c+c1}{\PYZsh{} 0}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{rules}\PY{p}{)}        \PY{c+c1}{\PYZsh{} 1}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{weight}\PY{p}{)}       \PY{c+c1}{\PYZsh{} 2}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{adj\PYZus{}list}\PY{p}{)}     \PY{c+c1}{\PYZsh{} 3}
+            \PY{n}{temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{target}\PY{p}{)}       \PY{c+c1}{\PYZsh{} 4}
+        
+            \PY{n}{data}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{temp}\PY{p}{)}
+        
+        \PY{n}{minTime} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{testcase} \PY{o+ow}{in} \PY{n}{data}\PY{p}{:}
+            \PY{n}{buldingCount} \PY{p}{,} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{weight}\PY{p}{,}  \PY{n}{adj\PYZus{}list}\PY{p}{,} \PY{n}{target}\PY{o}{=} \PY{n}{testcase}
+            
+            \PY{n}{top}            \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{visited}        \PY{o}{=} \PY{p}{[}\PY{k+kc}{False}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{result}         \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n}{buldingCount} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{result}\PY{p}{[}\PY{n}{target}\PY{p}{]} \PY{o}{=} \PY{n}{weight}\PY{p}{[}\PY{n}{target}\PY{p}{]}
+            
+            \PY{n}{dfs}\PY{p}{(}\PY{n}{target}\PY{p}{)} 
+            \PY{n}{bfs}\PY{p}{(}\PY{n}{target}\PY{p}{)}
+        
+            \PY{n}{minTime}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{max}\PY{p}{(}\PY{n}{result}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{ele} \PY{o+ow}{in} \PY{n}{minTime}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{ele}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
